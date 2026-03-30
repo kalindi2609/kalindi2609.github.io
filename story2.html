@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Riding Hood</title>
+
+<style>
+body{margin:0;font-family:Poppins;background:#f6f9fc;transition:0.4s;}
+.header{display:flex;justify-content:space-between;padding:15px;background:#d62828;color:white;}
+.content{padding:20px;}
+.accordion{width:100%;padding:15px;margin-top:10px;border:none;background:#f77f00;color:white;border-radius:10px;cursor:pointer;}
+.panel{max-height:0;overflow:hidden;transition:0.4s;background:white;padding:0 10px;}
+.dark{background:#121212;color:white;}
+.dark .panel{background:#333;}
+body{animation:fade 0.8s;}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>Red Riding Hood 🐺</h2>
+<div>
+<button onclick="toggleTheme()">🌙</button>
+<a href="index.html">⬅</a>
+</div>
+</div>
+
+<div class="content">
+<h3>Original Story</h3>
+<p>A girl meets a wolf while visiting her grandmother, leading to danger.</p>
+
+<h3>Alternate Endings</h3>
+
+<button class="accordion">Hero Ending</button>
+<div class="panel"><p>She outsmarts and defeats the wolf herself.</p></div>
+
+<button class="accordion">Friendly Wolf</button>
+<div class="panel"><p>The wolf becomes her protector.</p></div>
+
+<button class="accordion">Dark Twist</button>
+<div class="panel"><p>The ending leaves a haunting mystery.</p></div>
+</div>
+
+<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+
+<script>
+document.querySelectorAll(".accordion").forEach(btn=>{
+btn.onclick=()=>{
+playSound();
+let p=btn.nextElementSibling;
+p.style.maxHeight=p.style.maxHeight?null:p.scrollHeight+"px";
+};
+});
+
+function playSound(){
+let s=document.getElementById("sound");
+s.currentTime=0;s.play();
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+localStorage.setItem("theme",document.body.classList.contains("dark")?"dark":"light");
+playSound();
+}
+
+if(localStorage.getItem("theme")==="dark"){document.body.classList.add("dark");}
+</script>
+
+</body>
+</html>
