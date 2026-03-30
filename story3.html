@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snow White</title>
+
+<style>
+body{margin:0;font-family:Poppins;background:#f6f9fc;transition:0.4s;}
+.header{display:flex;justify-content:space-between;padding:15px;background:#6a4c93;color:white;}
+.content{padding:20px;}
+.accordion{width:100%;padding:15px;margin-top:10px;border:none;background:#9d4edd;color:white;border-radius:10px;cursor:pointer;}
+.panel{max-height:0;overflow:hidden;transition:0.4s;background:white;padding:0 10px;}
+.dark{background:#121212;color:white;}
+.dark .panel{background:#333;}
+body{animation:fade 0.8s;}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>Snow White 🍎</h2>
+<div>
+<button onclick="toggleTheme()">🌙</button>
+<a href="index.html">⬅</a>
+</div>
+</div>
+
+<div class="content">
+<h3>Original Story</h3>
+<p>A princess escapes an evil queen and is revived by true love.</p>
+
+<h3>Alternate Endings</h3>
+
+<button class="accordion">Warrior Ending</button>
+<div class="panel"><p>Snow White fights back and defeats the queen.</p></div>
+
+<button class="accordion">Queen Redemption</button>
+<div class="panel"><p>The queen realizes her mistakes and changes.</p></div>
+
+<button class="accordion">Magic Realm</button>
+<div class="panel"><p>Snow White becomes ruler of a magical land.</p></div>
+</div>
+
+<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+
+<script>
+document.querySelectorAll(".accordion").forEach(btn=>{
+btn.onclick=()=>{
+playSound();
+let p=btn.nextElementSibling;
+p.style.maxHeight=p.style.maxHeight?null:p.scrollHeight+"px";
+};
+});
+
+function playSound(){
+let s=document.getElementById("sound");
+s.currentTime=0;s.play();
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+localStorage.setItem("theme",document.body.classList.contains("dark")?"dark":"light");
+playSound();
+}
+
+if(localStorage.getItem("theme")==="dark"){document.body.classList.add("dark");}
+</script>
+
+</body>
+</html>
