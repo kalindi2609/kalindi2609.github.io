@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinderella</title>
+
+<style>
+body {
+    margin:0;
+    font-family:Poppins;
+    background:#f6f9fc;
+    transition:0.4s;
+}
+
+/* HEADER */
+.header {
+    display:flex;
+    justify-content:space-between;
+    padding:15px;
+    background:#ff6f61;
+    color:white;
+}
+
+/* CONTENT */
+.content {
+    padding:20px;
+}
+
+/* ACCORDION */
+.accordion {
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border:none;
+    background:#ff9a9e;
+    color:white;
+    cursor:pointer;
+    border-radius:10px;
+}
+
+.panel {
+    max-height:0;
+    overflow:hidden;
+    transition:0.4s;
+    background:white;
+    padding:0 10px;
+}
+
+/* DARK */
+.dark {
+    background:#121212;
+    color:white;
+}
+
+.dark .panel {
+    background:#333;
+}
+
+/* ANIMATION */
+body {
+    animation:fade 0.8s ease;
+}
+@keyframes fade {
+    from{opacity:0;}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>Cinderella 👠</h2>
+<div>
+<button onclick="toggleTheme()">🌙</button>
+<a href="index.html">⬅</a>
+</div>
+</div>
+
+<div class="content">
+
+<h3>Original Story</h3>
+<p>A girl attends a magical ball and wins the prince’s heart.</p>
+
+<h3>Alternate Endings</h3>
+
+<button class="accordion">Freedom Ending</button>
+<div class="panel"><p>She chooses independence.</p></div>
+
+<button class="accordion">Magic Ending</button>
+<div class="panel"><p>She becomes a sorceress.</p></div>
+
+<button class="accordion">Forgiveness Ending</button>
+<div class="panel"><p>She reunites with her family.</p></div>
+
+</div>
+
+<audio id="sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+
+<script>
+document.querySelectorAll(".accordion").forEach(btn=>{
+    btn.onclick=()=>{
+        playSound();
+        let panel=btn.nextElementSibling;
+        panel.style.maxHeight=panel.style.maxHeight?null:panel.scrollHeight+"px";
+    }
+});
+
+function playSound(){
+    let s=document.getElementById("sound");
+    s.currentTime=0;
+    s.play();
+}
+
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+    localStorage.setItem("theme",
+        document.body.classList.contains("dark")?"dark":"light");
+    playSound();
+}
+
+if(localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>
